@@ -1,0 +1,8 @@
+#Ignore these modules
+node_modules/
+bin/
+test/
+
+#Ignore these files
+db-config.js
+.DS_Store
