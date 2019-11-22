@@ -34,29 +34,26 @@ router.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'dashboard.html'));
 });
 
+/* ----- Player head to head ----- */
 router.get('/playerh2h', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'playerh2h.html'));
 });
 
-
-/* ----- Q2 (Recommendations) ----- */
-router.get('/recommendations', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'recommendations.html'));
+/* ----- Team head to head ----- */
+router.get('/teamh2h', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'teamh2h.html'));
 });
 
-/* ----- Q3 (Best Of Decades) ----- */
-router.get('/bestof', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'bestof.html'));
+/* ----- Player projection ----- */
+router.get('/projection', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'projection.html'));
 });
 
-/* ----- Bonus (Posters) ----- */
-router.get('/posters', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'posters.html'));
+/* ----- College facts ----- */
+router.get('/college', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'college.html'));
 });
 
-router.get('/reference', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'reference.html'));
-});
 
 /* Template for a FILE request router:
 
@@ -82,24 +79,7 @@ router.get('<PATH>', function(req, res) {
 
 
 
-
 /* ----- Player projection ----- */
-
-router.get('/decades', function(req, res) {
-  var query = `
-    SELECT * FROM Test
-  `;
-  console.log(connection);
-  connection.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      console.log("pu");
-      console.log(rows);
-      res.json(rows);
-    }
-  });
-
-});
 
 
 
