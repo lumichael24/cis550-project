@@ -69,16 +69,16 @@ router.get('<PATH>', function(req, res) {
 /* ----- Routers to handle data requests ----- */
 /* ------------------------------------------------ */
 
-/* ----- Q1 (Dashboard) ----- */
+/* ----- Player head-to-head ----- */
 
 
 
-/* ----- Q2 (Recommendations) ----- */
+/* ----- Team head-to-head ----- */
 
 
 
 
-/* ----- Q3 (Best Of Decades) ----- */
+/* ----- Player projection ----- */
 
 router.get('/decades', function(req, res) {
   var query = `
@@ -98,7 +98,7 @@ router.get('/decades', function(req, res) {
 
 
 
-/* ----- Bonus (Posters) ----- */
+/* ----- College facts page ----- */
 
 
 
