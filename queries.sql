@@ -6,7 +6,7 @@ WITH P1_ID AS (
 ), P2_ID AS (
 	SELECT PM.player_id
 	FROM Player_Map PM 
-	WHERE PM.name = "Kobe Bryant")
+	WHERE PM.name = "Kobe Bryant"
 ), P1_GAMES AS (
 	SELECT Game_id, person_id, Abbreviation, Outcome, Points, Rebounds, Assists
 	FROM Player_Boxscores PBS
