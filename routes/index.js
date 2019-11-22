@@ -34,6 +34,11 @@ router.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'dashboard.html'));
 });
 
+router.get('/playerh2h', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'playerh2h.html'));
+});
+
+
 /* ----- Q2 (Recommendations) ----- */
 router.get('/recommendations', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'recommendations.html'));
