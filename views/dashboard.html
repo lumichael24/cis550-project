@@ -17,10 +17,9 @@
   <body ng-controller="dashboardController">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <span class="navbar-brand center">CIS550 HW2</span>
+      <a class="navbar-brand center" href="/">CIS550 HW2</a>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="/">Dashboard</a>
           <a class="nav-item nav-link" href="/recommendations">Recommendations</a>
           <a class="nav-item nav-link" href="/bestof">Best Of</a>
           <a class="nav-item nav-link" href="/posters">Posters</a>
@@ -33,17 +32,16 @@
     <br>
     <div class="container movie-container">
       <div class="jumbotron">
-        <div class="h5">Top Movies</div>
+        <div class="h5">Landing Page</div>
         <!-- Display the Genres -->
-        <div class="genres-container">
+        <!-- <div class="genres-container">
           <div class="genre" ng-repeat="g in genres" ng-click="showMovies(g)" id="{{'button-' + g.genre}}">
             {{g.genre}}
           </div>
-        </div>
+        </div> -->
       </div>
-      <br>
+      <!-- <br>
       <div class="jumbotron">
-        <!-- Display top 10 movies when a genre is clicked -->
         <div class="movies-container">
           <div class="movie">
             <div class="header-lg"><strong>Title</strong></div>
@@ -57,7 +55,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Include these before the end of body tag in every HTML file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
