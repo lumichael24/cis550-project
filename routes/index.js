@@ -81,6 +81,37 @@ router.get('<PATH>', function(req, res) {
 
 /* ----- Player projection ----- */
 
+router.get('/projection/:playername', function(req, res) {
+  // Parses the customParameter from the path, and assigns it to variable myData
+  var playerName = req.params.playername;
+  var query = `
+    WITH PS AS (
+      SELECT C.name, C.college, C.PTS, C.TRB, C.AST
+      FROM College C
+      WHERE C.name="`+ playerName +`"
+  ), TEMP_LMS AS (
+      SELECT DISTINCT(C.name) as playerName, C.college as collegeName, SQRT(POWER(N.PTS - C.PTS, 2) + POWER(N.AST - C.AST, 2) +   POWER(N.TRB - C.TRB, 2)) as similarityValue
+      FROM PS N, College C
+      WHERE N.PTS IS NOT NULL AND C.PTS IS NOT NULL AND N.AST IS NOT NULL AND C.AST IS NOT NULL AND
+      N.TRB IS NOT NULL AND C.TRB IS NOT NULL
+  )
+  SELECT DISTINCT T.playerName AS name, N.PTS, N.TRB, N.AST
+  FROM TEMP_LMS T JOIN NBA N ON T.playerName = N.name AND T.collegeName = N.college
+  WHERE T.playerName <> "`+ playerName +`"
+  ORDER BY T.similarityValue ASC
+  LIMIT 10
+  `;
+  console.log(query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      // Returns the result of the query (rows) in JSON as the response
+      res.json(rows);
+    }
+  });
+});
+
+
 
 
 /* ----- College facts page ----- */
