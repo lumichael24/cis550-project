@@ -129,6 +129,105 @@ router.get('/playerh2h/:player1name/:player2name', function(req, res) {
 
 /* ----- Team head-to-head ----- */
 
+router.get('/teamh2h/:team1name/:team2name', function(req, res) {
+  // Parses the customParameter from the path, and assigns it to variable myData
+  var team1Name = req.params.team1name;
+  var team2Name = req.params.team2name;
+  var query = `
+  WITH teamOneId AS (
+  	SELECT Team_ID
+  	FROM Team_Map tm
+  	WHERE tm.Name = "` + team1Name + `"
+  ), teamTwoId AS (
+  	SELECT Team_ID
+  	FROM Team_Map tm
+  	WHERE tm.Name = "`+ team2Name + `"
+  ), teamOnePlayers AS (
+  	SELECT Person_id, Player_Name, Team_Id, Plus_Minus
+  	FROM Player_Boxscores pb
+  	WHERE pb.Team_id IN (SELECT Team_ID FROM teamOneId) AND pb.vs_team_id IN
+  	(SELECT Team_Id FROM teamTwoId)
+  ), teamTwoPlayers AS (
+  	SELECT Person_id, Player_Name, Team_Id, Plus_Minus
+  	FROM Player_Boxscores pb
+  	WHERE pb.Team_id IN (SELECT Team_ID FROM teamTwoId) AND pb.vs_team_id IN
+  	(SELECT Team_Id FROM teamOneId)
+  ), aggTeamOne AS (
+  	SELECT top.Person_id, top.Player_Name, top.Team_id, AVG(top.Plus_Minus) AS PM
+  	FROM teamOnePlayers top
+  	GROUP BY top.person_id, top.Player_Name, top.Team_id
+  	ORDER BY AVG(top.Plus_Minus) DESC
+  ), aggTeamTwo AS (
+  	SELECT top.Person_id, top.Player_Name, top.Team_id, AVG(top.Plus_Minus) AS PM
+  	FROM teamTwoPlayers top
+  	GROUP BY top.person_id, top.Player_Name, top.Team_id
+  	ORDER BY AVG(top.Plus_Minus) DESC
+  )
+  (SELECT ato.Player_Name, ato.pm as PlusMinus, tm.name as TeamName
+  FROM aggTeamOne ato JOIN Team_Map tm ON ato.Team_id = tm.Team_id
+  LIMIT 5)
+  UNION
+  (SELECT ato.Player_Name, ato.pm as PlusMinus, tm.name as TeamName
+  FROM aggTeamTwo ato JOIN Team_Map tm ON ato.Team_id = tm.Team_id
+  LIMIT 5);
+  `;
+  console.log(query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      // Returns the result of the query (rows) in JSON as the response
+      // res.json(rows);
+      var query1 = `
+      WITH teamOneId AS (
+      	SELECT Team_ID
+      	FROM Team_Map tm
+      	WHERE tm.Name = "` + team1Name + `"
+      ), teamTwoId AS (
+      	SELECT Team_ID
+      	FROM Team_Map tm
+      	WHERE tm.Name = "` + team2Name + `"
+      ), teamOneWins AS (
+      	SELECT DISTINCT pb.game_id, pb.Team_id, pb.Outcome
+          FROM Player_Boxscores pb
+          WHERE pb.vs_team_ID IN (SELECT * FROM teamTwoId) AND pb.Team_id
+          IN (SELECT * FROM teamOneId)
+      ), teamTwoWins AS (
+      	SELECT DISTINCT pb.game_id, pb.Team_id, pb.Outcome
+          FROM Player_Boxscores pb
+          WHERE pb.vs_team_ID IN (SELECT * FROM teamOneId) AND pb.Team_id
+          IN (SELECT * FROM teamTwoId)
+      ), aggTeamOne AS (
+      	SELECT tow.Team_id, tow.Outcome, COUNT(*) as num
+      	FROM teamOneWins tow
+      	GROUP BY tow.Team_id, tow.Outcome
+      ), aggTeamTwo AS (
+      	SELECT ttw.Team_id, ttw.Outcome, COUNT(*) as num
+      	FROM teamTwoWins ttw
+      	GROUP BY ttw.Team_id, ttw.Outcome
+      ), summary AS (
+        (SELECT tm.Name, tm.Conference, ato.Outcome, ato.num
+        FROM aggTeamOne ato JOIN Team_Map tm ON ato.Team_id = tm.Team_id)
+        UNION
+        (SELECT tm.Name, tm.Conference, ato.Outcome, ato.num
+        FROM aggTeamTwo ato JOIN Team_Map tm ON ato.Team_id = tm.Team_id)
+      )
+      SELECT *
+      FROM summary s
+      ORDER BY s.Name ASC, s.Outcome DESC
+      `;
+      connection.query(query1, function(err1, rows1, fields1) {
+        if (err1) console.log(err1);
+        else {
+          // Returns the result of the query (rows) in JSON as the response
+          res.json({firstQuery: rows, secondQuery: rows1});
+        }
+      });
+    }
+  });
+});
+
+
+
 
 
 /* ----- Player projection ----- */

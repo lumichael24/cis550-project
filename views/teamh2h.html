@@ -11,10 +11,10 @@
     <script src="javascripts/app.js" type="text/javascript"></script>
     <!-- Custom styles for this template-->
     <link href="/stylesheets/common.css" rel="stylesheet">
-    <link href="/stylesheets/recommendations.css" rel="stylesheet">
+    <link href="/stylesheets/teamh2h.css" rel="stylesheet">
   </head>
 
-  <body ng-controller="recommendationsController">
+  <body ng-controller="teamh2hController">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand center" href="/">CIS550 HW2</a>
@@ -35,23 +35,37 @@
         <br>
         <div class="input-container">
           <div class="h6">Select two teams to compare:</div>
-          <input type="text" ng-model="teamName1" placeholder="Enter Team Name" id="teamName1" class="movie-input"/>
-          <input type="text" ng-model="teamName2" placeholder="Enter Team Name" id="teamName2" class="movie-input"/>
-          <button id="submitMovieBtn" class="submit-btn" ng-click="submitIds()">Submit</button>
+          <input type="text" ng-model="team1Name" placeholder="Enter Team Name" id="team1Name" class="movie-input"/>
+          <input type="text" ng-model="team2Name" placeholder="Enter Team Name" id="team2Name" class="movie-input"/>
+          <button id="submitMovieBtn" class="submit-btn" ng-click="submitTeams()">Submit</button>
         </div>
         <div class="movies-container">
-          <div class="h6">You may like ...</div>
+          <div class="h6">Head to head record</div>
           <div class="movie">
-            <div class="header"><strong>City</strong></div>
             <div class="header"><strong>Team</strong></div>
             <div class="header"><strong>Conference</strong></div>
-            <div class="header"><strong>Point Differential</strong></div>
+            <div class="header"><strong>Outcome</strong></div>
+            <div class="header"><strong>Games</strong></div>
           </div>
-          <div class="movie" id="results" ng-repeat="movie in recommendedMovies">
-            <div class="title">{{movie.title}}</div>
-            <div class="id">{{movie.id}}</div>
-            <div class="rating">{{movie.rating}}</div>
-            <div class="vote-count">{{movie.vote_count}}</div>
+          <div class="movie" id="results" ng-repeat="team in teamRecord">
+            <div class="header">{{team.Name}}</div>
+            <div class="header">{{team.Conference}}</div>
+            <div class="header">{{team.Outcome}}</div>
+            <div class="header">{{team.num}}</div>
+          </div>
+        </div>
+        <hr>
+        <div class="movies-container">
+          <div class="h6">Best performing players in matchup</div>
+          <div class="movie">
+            <div class="playerResult"><strong>Player Name</strong></div>
+            <div class="playerResult"><strong>Team</strong></div>
+            <div class="playerResult"><strong>Plus/Minus</strong></div>
+          </div>
+          <div class="movie" id="results" ng-repeat="player in playerPerformance">
+            <div class="playerResult">{{player.Player_Name}}</div>
+            <div class="playerResult">{{player.TeamName}}</div>
+            <div class="playerResult">+{{player.PlusMinus.toFixed(1)}}</div>
           </div>
         </div>
       </div>

@@ -19,6 +19,21 @@ app.controller('playerh2hController', function($scope, $http) {
   }
 });
 
+// Controller for the Team head to head comparison page
+app.controller('teamh2hController', function($scope, $http) {
+  $scope.submitTeams = function() {
+    $http({
+      url: '/teamh2h/' + $scope.team1Name + '/' + $scope.team2Name,
+      method: 'GET'
+    }).then(res => {
+      $scope.playerPerformance = res.data.firstQuery;
+      $scope.teamRecord = res.data.secondQuery;
+    }, err => {
+      console.log("Projection ERROR", err);
+    });
+  }
+});
+
 // Controller for the Projections Page
 app.controller('projectionController', function($scope, $http) {
 
