@@ -73,6 +73,58 @@ router.get('<PATH>', function(req, res) {
 
 /* ----- Player head-to-head ----- */
 
+router.get('/playerh2h/:player1name/:player2name', function(req, res) {
+  // Parses the customParameter from the path, and assigns it to variable myData
+  var player1Name = req.params.player1name;
+  var player2Name = req.params.player2name;
+  var query = `
+  WITH P1_ID AS (
+    SELECT PM.player_id
+    FROM Player_Map PM
+    WHERE PM.name = "`+ player1Name +`"
+  ), P2_ID AS (
+    SELECT PM.player_id
+    FROM Player_Map PM
+    WHERE PM.name = "`+ player2Name +`"
+  ), P1_GAMES AS (
+    SELECT Game_id, person_id, Player_Name, Abbreviation, Outcome, Points, Rebounds, Assists
+    FROM Player_Boxscores PBS
+    WHERE person_id in (SELECT player_id FROM P1_ID)
+  ), P2_GAMES AS (
+    SELECT Game_id, person_id, Player_Name, Abbreviation, Outcome, Points, Rebounds, Assists
+    FROM Player_Boxscores PBS
+    WHERE person_id in (SELECT player_id FROM P2_ID)
+  ), GAMES_INTERSECTION_P1 AS (
+    SELECT P1G.person_id, P1G.Player_Name, P1G.Outcome, P1G.Points, P1G.Rebounds, P1G.Assists
+    FROM P1_GAMES P1G JOIN P2_GAMES P2G ON P1G.Game_id = P2G.Game_id
+    WHERE P1G.Abbreviation <> P2G.Abbreviation
+  ), GAMES_INTERSECTION_P2 AS (
+    SELECT P2G.person_id, P2G.Player_Name, P2G.Outcome, P2G.Points, P2G.Rebounds, P2G.Assists
+    FROM P1_GAMES P1G JOIN P2_GAMES P2G ON P1G.Game_id = P2G.Game_id
+    WHERE P1G.Abbreviation <> P2G.Abbreviation
+  ), SUMMARY AS (
+    (SELECT GIP1.Player_Name, AVG(GIP1.Points) AS pts, AVG(GIP1.Rebounds) AS trb, AVG(GIP1.Assists) AS ast, GIP1.Outcome, COUNT(*) as Num
+    FROM GAMES_INTERSECTION_P1 GIP1
+    GROUP BY GIP1.Outcome)
+    UNION
+    (SELECT GIP2.Player_Name, AVG(GIP2.Points) AS pts, AVG(GIP2.Rebounds) AS trb, AVG(GIP2.Assists) AS ast, GIP2.Outcome, COUNT(*) as Num
+    FROM GAMES_INTERSECTION_P2 GIP2
+    GROUP BY GIP2.Outcome)
+  )
+  SELECT *
+  FROM SUMMARY S
+  ORDER BY S.Player_Name, S.Outcome DESC
+  `;
+  console.log(query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      // Returns the result of the query (rows) in JSON as the response
+      res.json(rows);
+    }
+  });
+});
+
 
 
 /* ----- Team head-to-head ----- */

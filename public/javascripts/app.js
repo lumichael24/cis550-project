@@ -5,6 +5,20 @@ app.controller('dashboardController', function($scope, $http) {
   // TODO: Q1
 });
 
+// Controller for the Player head to head comparison page
+app.controller('playerh2hController', function($scope, $http) {
+  $scope.submitPlayers = function() {
+    $http({
+      url: '/playerh2h/' + $scope.player1Name + '/' + $scope.player2Name,
+      method: 'GET'
+    }).then(res => {
+      $scope.playerStats = res.data;
+    }, err => {
+      console.log("Projection ERROR", err);
+    });
+  }
+});
+
 // Controller for the Projections Page
 app.controller('projectionController', function($scope, $http) {
 
