@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CIS550 HW2: Best Of</title>
+    <title>College Facts</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="javascripts/app.js" type="text/javascript"></script>
@@ -15,10 +15,10 @@
     <!-- Include your custom css file here if you're making one -->
   </head>
 
-  <body ng-controller="bestofController">
+  <body ng-controller="collegeFactsController">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand center" href="/">CIS550 HW2</a>
+      <a class="navbar-brand center" href="/">Home</a>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-item nav-link" href="/playerh2h">Player H2H</a>
@@ -32,28 +32,55 @@
     <!-- Sample Content. You can either use this or make your own -->
     <div class="container bestof-container">
       <div class="jumbotron">
-        <div class="h5">Best Of</div>
-
+        <div class="h5">College Facts</div>
+        <br>
         <div class="years-container">
-          <div class="dropdown-container">
-            <select class="dropdown" id="decadesDropdown" ng-model="selectedDecade" ng-options="d.decade for d in decades"></select>
-          </div>
-          <button class="submit-btn" id="decadesSubmitBtn" ng-click="submitDecade()">Submit</button>
+          <button class="submit-btn" id="byPositionSubmitBtn" ng-click="submitByPosition()">Order by Position</button>
+          <button class="submit-btn" id="byOverallSubmitBtn" ng-click="submitByOverall()">Order by Overall</button>
+          <button class="submit-btn" id="sleepersSubmitBtn" ng-click="submitBySleepers()">Sleepers</button>
+          <button class="submit-btn" id="bustsSubmitBtn" ng-click="submitByBusts()">Busts</button>
         </div>
       </div>
-      <div class="jumbotron">
+      <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+          <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+          <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+      </ul>
+      <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+        <div class="jumbotron">
         <div class="movies-container">
-          <div class="movie">
-            <div class="header"><strong>Genre</strong></div>
-            <div class="header"><strong>Title</strong></div>
-            <div class="header"><strong>Vote Count</strong></div>
-            <div class="header"><strong>Release Year</strong></div>
+          <div class="movie" ng-show="show">
+            <div class="header"><strong>College</strong></div>
+            <div class="header"><strong>Position</strong></div>
+            <div class="header"><strong>Number of Players</strong></div>
           </div>
-          <div class="movie" id="results" ng-repeat="movie in bestofMovies">
-            <div class="genre">{{movie.genre}}</div>
-            <div class="title">{{movie.title}}</div>
-            <div class="votes">{{movie.vote_count}}</div>
-            <div class="year">{{movie.release_year}}</div>
+          <div class="movie" id="results" ng-repeat="college in colleges" ng-show="show">
+            <div class="genre">{{college.college}}</div>
+            <div class="title">{{college.pos}}</div>
+            <div class="year">{{college.numOfPlayers}}</div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div id="menu1" class="tab-pane fade">
+        <h3>Menu 1</h3>
+        <p>Some content in menu 1.</p>
+      </div>
+      <div id="menu2" class="tab-pane fade">
+        <h3>Menu 2</h3>
+        <p>Some content in menu 2.</p>
+      </div>
+    </div>
+      <div class="jumbotron">
+        <div class="diff-container">
+          <div class="movie1" ng-show="showOverall">
+            <div class="header"><strong>College</strong></div>
+            <div class="header"><strong>Number of Players</strong></div>
+          </div>
+          <div class="movie2" id="results" ng-repeat="college in overall" ng-show="showOverall">
+            <div class="college">{{college.college}}</div>
+            <div class="collegeYear">{{college.numOfPlayers}}</div>
           </div>
         </div>
       </div>

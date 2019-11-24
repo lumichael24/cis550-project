@@ -22,6 +22,49 @@ app.controller('projectionController', function($scope, $http) {
 });
 
 // Controller for the Best Of Page
-app.controller('bestofController', function($scope, $http) {
-  // TODO: Q3
+app.controller('collegeFactsController', function($scope, $http) {
+  $scope.submitByPosition = function() {
+    $scope.show = false;
+    $http({
+      url: '/retrieveByPosition/',
+      method: 'GET'
+    }).then(res => {
+      $scope.show = true;
+      $scope.colleges = res.data;
+    }, err => {
+      console.log("retrieveByPosition ERROR", err);
+    });
+  }
+  $scope.submitByOverall = function() {
+    $scope.showOverall = false;
+    $http({
+      url: '/retrieveByOverall/',
+      method: 'GET'
+    }).then(res => {
+      $scope.showOverall = true;
+      $scope.overall = res.data;
+    }, err => {
+      console.log("retrieveByOverall ERROR", err);
+    });
+  }
+  $scope.submitBySleepers = function() {
+    $http({
+      url: '/getSleepers/',
+      method: 'GET'
+    }).then(res => {
+      $scope.sleepers = res.data;
+    }, err => {
+      console.log("Sleepers ERROR", err);
+    });
+  }
+  $scope.submitByBusts = function() {
+    $http({
+      url: '/getBusts/',
+      method: 'GET'
+    }).then(res => {
+      $scope.busts = res.data;
+    }, err => {
+      console.log("Busts ERROR", err);
+    });
+  }
 });
