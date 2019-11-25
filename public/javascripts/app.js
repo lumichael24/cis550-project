@@ -52,41 +52,42 @@ app.controller('projectionController', function($scope, $http) {
 
 // Controller for the Best Of Page
 app.controller('collegeFactsController', function($scope, $http) {
-  $scope.submitByPosition = function() {
-    $scope.show = false;
-    $http({
-      url: '/retrieveByPosition/',
-      method: 'GET'
-    }).then(res => {
-      $scope.show = true;
-      $scope.colleges = res.data;
-    }, err => {
-      console.log("retrieveByPosition ERROR", err);
-    });
-  }
-  $scope.submitByOverall = function() {
-    $scope.showOverall = false;
+
+  $http({
+    url: '/retrieveByPosition/',
+    method: 'GET'
+  }).then(res => {
+    $scope.colleges = res.data;
+    retrieveByOverall();
+  }, err => {
+    console.log("retrieveByPosition ERROR", err);
+  });
+
+  var retrieveByOverall = function() {
     $http({
       url: '/retrieveByOverall/',
       method: 'GET'
     }).then(res => {
-      $scope.showOverall = true;
       $scope.overall = res.data;
+      getSleepers();
     }, err => {
       console.log("retrieveByOverall ERROR", err);
     });
   }
-  $scope.submitBySleepers = function() {
+
+  var getSleepers = function() {
     $http({
       url: '/getSleepers/',
       method: 'GET'
     }).then(res => {
       $scope.sleepers = res.data;
+      getBusts();
     }, err => {
       console.log("Sleepers ERROR", err);
     });
   }
-  $scope.submitByBusts = function() {
+
+  var getBusts = function() {
     $http({
       url: '/getBusts/',
       method: 'GET'
@@ -96,4 +97,5 @@ app.controller('collegeFactsController', function($scope, $http) {
       console.log("Busts ERROR", err);
     });
   }
+
 });
