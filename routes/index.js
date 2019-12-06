@@ -30,7 +30,6 @@ connection.query('SELECT * FROM NBA WHERE ROWNUM <= 1', function (err, result, f
 /* ------------------------------------------- */
 
 router.get('/', function(req, res) {
-  //console.log(connection)
   res.sendFile(path.join(__dirname, '../', 'views', 'dashboard.html'));
 });
 
@@ -53,19 +52,6 @@ router.get('/projection', function(req, res) {
 router.get('/college', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'college.html'));
 });
-
-
-/* Template for a FILE request router:
-
-Specifies that when the app recieves a GET request at <PATH>,
-it should respond by sending file <MY_FILE>
-
-router.get('<PATH>', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', '<MY_FILE>'));
-});
-
-*/
-
 
 /* ------------------------------------------------ */
 /* ----- Routers to handle data requests ----- */
@@ -225,9 +211,6 @@ router.get('/teamh2h/:team1name/:team2name', function(req, res) {
     }
   });
 });
-
-
-
 
 
 /* ----- Player projection ----- */
@@ -449,26 +432,6 @@ connection.query(query, function(err, rows, fields) {
     }
   });
 });
-
-
-
-
-/* General Template for GET requests:
-
-router.get('/routeName/:customParameter', function(req, res) {
-  // Parses the customParameter from the path, and assigns it to variable myData
-  var myData = req.params.customParameter;
-  var query = '';
-  console.log(query);
-  connection.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      // Returns the result of the query (rows) in JSON as the response
-      res.json(rows);
-    }
-  });
-});
-*/
 
 
 module.exports = router;
