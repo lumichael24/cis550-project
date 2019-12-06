@@ -18,16 +18,26 @@
   <body ng-controller="collegeFactsController" ng-style="{'width': '100%'}">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand center" href="/">Basketball App</a>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" href="/playerh2h">Player H2H</a>
-          <a class="nav-item nav-link" href="/teamh2h">Team H2H</a>
-          <a class="nav-item nav-link" href="/projection">Player Projection</a>
-          <a class="nav-item nav-link active" href="/college">College Facts</a>
+        <a class="navbar-brand center" href="/">Basketball App</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/playerh2h">Player H2H</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/teamh2h">Team H2H</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/projection">Player Projection</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/college">College Facts</a>
+            </li>
+
+          </ul>
+          <img src="/assets/bballicon.png" height="32" width="32">
         </div>
-      </div>
-    </nav>
+      </nav>
 
     <!-- Sample Content. You can either use this or make your own -->
     <div class="container bestof-container">
