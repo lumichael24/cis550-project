@@ -60,26 +60,17 @@
           <button id="submitPlayerbtn" class="submit-btn" ng-click="submitPlayers()">Submit</button>
         </div>
         <div class="games-container">
-          <div class="h6"></div>
-          <div class="game">
-            <div class="header"><strong>Player</strong></div>
-            <div class="header"><strong>Result</strong></div>
-            <div class="header"><strong>Games</strong></div>
-            <div class="header"><strong>Points Per Game</strong></div>
-            <div class="header"><strong>Assists Per Game</strong></div>
-            <div class="header"><strong>Rebounds Per Game</strong></div>
+          <div class="row">
+              <div class="col" id="results" ng-repeat="player in playerStats">
+                  <div class="header"><strong>Wins: </strong> {{player.W}}</div>
+                  <div class="header"><strong>PPG: </strong> {{player.pts}}</div>
+                  <div class="header"><strong>APG: </strong> {{player.ast}}</div>
+                  <div class="header"><strong>PGB: </strong> {{player.trb}}</div>
+                </div>
           </div>
           <p ng-if="playerStats.length === 0">
             Sorry these players never played against each other
           </p>
-          <div class="game" id="results" ng-repeat="player in playerStats">
-            <div class="header">{{player.Player_Name}}</div>
-            <div class="header">{{player.Outcome}}</div>
-            <div class="header">{{player.Num}}</div>
-            <div class="header">{{player.pts.toFixed(1)}}</div>
-            <div class="header">{{player.trb.toFixed(1)}}</div>
-            <div class="header">{{player.ast.toFixed(1)}}</div>
-          </div>
         </div>
       </div>
     </div>

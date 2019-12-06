@@ -12,7 +12,49 @@ app.controller('playerh2hController', function($scope, $http) {
       url: '/playerh2h/' + $scope.player1Name + '/' + $scope.player2Name,
       method: 'GET'
     }).then(res => {
-      $scope.playerStats = res.data;
+
+      // Collate info into wins, ppg, apg, rpg
+      var map = {}
+      for (i = 0; i < res.data.length; i++) {
+        var obj = res.data[i];
+        if (obj['Player_Name'] in map) {
+          map[obj['Player_Name']]['ast'][obj["Outcome"]] += obj['ast']
+          map[obj['Player_Name']]['pts'][obj["Outcome"]] += obj['pts']
+          map[obj['Player_Name']]['trb'][obj["Outcome"]] += obj['trb']
+        } else {
+          map[obj['Player_Name']] = {}
+          map[obj['Player_Name']]['ast'] = {'W': 0, 'L': 0}
+          map[obj['Player_Name']]['pts'] = {'W': 0, 'L': 0}
+          map[obj['Player_Name']]['trb'] = {'W': 0, 'L': 0}
+          map[obj['Player_Name']]['ast'][obj["Outcome"]] = obj['ast']
+          map[obj['Player_Name']]['pts'][obj["Outcome"]] = obj['pts']
+          map[obj['Player_Name']]['trb'][obj["Outcome"]] = obj['trb']
+        }
+        if (obj["Outcome"] === "W") {
+          map[obj['Player_Name']]['W'] = obj["Num"]
+        } else {
+          map[obj['Player_Name']]['L'] = obj["Num"]
+        }
+      }
+
+      for (var key in map) {
+        var value = map[key];
+        // weighted avg
+        value['ast'] = ((value['ast']['W']*value['W']) + (value['ast']['L']*value['L'])) / (value['W'] + value['L'])
+        value['pts'] = ((value['pts']['W']*value['W']) + (value['pts']['L']*value['L'])) / (value['W'] + value['L'])
+        value['trb'] = ((value['trb']['W']*value['W']) + (value['trb']['L']*value['L'])) / (value['W'] + value['L'])
+        map[key] = value
+      }
+
+      // Get ordering right
+      map['player1'] = map[$scope.player1Name]
+      map['player2'] = map[$scope.player2Name];
+      delete map[$scope.player1Name];
+      delete map[$scope.player2Name];
+
+
+      $scope.playerStats = map
+      console.log($scope.playerStats);
     }, err => {
       console.log("Projection ERROR", err);
     });
