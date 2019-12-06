@@ -38,20 +38,30 @@
       </div>
     </nav>
 
-    <!-- Sample Content. You can either use this or make your own -->
-    <div class="container recommendations-container">
+    <br>
+
+    <div class="title">
+        <h3> Player Head2Head </h3>
+        <h5> See which one of your favorite players is better!</h4>
+    </div>
+
+    <div class="container p2p-container">
       <div class="jumbotron">
-        <div class="h5">Player Head to Head</div>
-        <br>
         <div class="input-container">
-          <div class="h6">Select Players to Compare</div>
-          <input type="text" ng-model="player1Name" placeholder="Enter Player Name" id="player1Name" class="movie-input"/>
-          <input type="text" ng-model="player2Name" placeholder="Enter Player Name" id="player2Name" class="movie-input"/>
+          <div class="row">
+            <div class="col" align="center">
+                <input type="text" ng-model="player1Name" placeholder="Player 1" id="player1Name" class="player-input"/>
+                <!-- insert profile pics -->
+              </div>
+            <div class="col" align="center">
+                <input type="text" ng-model="player2Name" placeholder="Player 2" id="player2Name" class="player-input"/>
+            </div>
+          </div>
           <button id="submitPlayerbtn" class="submit-btn" ng-click="submitPlayers()">Submit</button>
         </div>
-        <div class="movies-container">
+        <div class="games-container">
           <div class="h6"></div>
-          <div class="movie">
+          <div class="game">
             <div class="header"><strong>Player</strong></div>
             <div class="header"><strong>Result</strong></div>
             <div class="header"><strong>Games</strong></div>
@@ -59,7 +69,10 @@
             <div class="header"><strong>Assists Per Game</strong></div>
             <div class="header"><strong>Rebounds Per Game</strong></div>
           </div>
-          <div class="movie" id="results" ng-repeat="player in playerStats">
+          <p ng-if="playerStats.length === 0">
+            Sorry these players never played against each other
+          </p>
+          <div class="game" id="results" ng-repeat="player in playerStats">
             <div class="header">{{player.Player_Name}}</div>
             <div class="header">{{player.Outcome}}</div>
             <div class="header">{{player.Num}}</div>
@@ -71,7 +84,6 @@
       </div>
     </div>
 
-    <!-- Include these before the end of body tag in every HTML file -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
