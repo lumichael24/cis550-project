@@ -39,7 +39,11 @@
         </div>
       </nav>
 
-    <!-- Sample Content. You can either use this or make your own -->
+    <div class="title">
+      <h3> College Facts </h3>
+      <h5> Interesting College Facts!</h4>
+    </div>
+
     <div class="container bestof-container">
       <div class="jumbotron">
         <div class="h5">College Facts</div>
@@ -66,13 +70,13 @@
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="jumbotron">
-              <div class="movies-container">
-                <div class="movie">
+              <div class="facts-container">
+                <div class="fact">
                   <div class="threeCol"><strong>College</strong></div>
                   <div class="threeCol"><strong>Position</strong></div>
                   <div class="threeCol"><strong>Number of Players</strong></div>
                 </div>
-                <div class="movie" id="results" ng-repeat="college in colleges">
+                <div class="fact" id="results" ng-repeat="college in colleges">
                   <div class="threeCol">{{college.college}}</div>
                   <div class="threeCol">{{college.pos}}</div>
                   <div class="threeCol">{{college.numOfPlayers}}</div>
@@ -82,12 +86,12 @@
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <div class="jumbotron">
-                <div class="movies-container">
-                  <div class="movie">
+                <div class="facts-container">
+                  <div class="fact">
                     <div class="twoCol"><strong>College</strong></div>
                     <div class="twoCol"><strong>Number of Players</strong></div>
                   </div>
-                  <div class="movie" id="results" ng-repeat="college in overall">
+                  <div class="fact" id="results" ng-repeat="college in overall">
                     <div class="twoCol">{{college.college}}</div>
                     <div class="twoCol">{{college.numOfPlayers}}</div>
                   </div>
@@ -96,11 +100,11 @@
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <div class="jumbotron">
-                <div class="movies-container">
-                  <div class="movie">
+                <div class="facts-container">
+                  <div class="fact">
                     <div class="oneCol"><strong>Player Name</strong></div>
                   </div>
-                  <div class="movie" id="results" ng-repeat="player in busts">
+                  <div class="fact" id="results" ng-repeat="player in busts">
                     <div class="twoCol">{{player.name}}</div>
                   </div>
                 </div>
@@ -108,11 +112,11 @@
             </div>
             <div class="tab-pane fade" id="sleepers" role="tabpanel" aria-labelledby="sleepers-tab">
               <div class="jumbotron">
-                <div class="movies-container">
-                  <div class="movie">
+                <div class="facts-container">
+                  <div class="fact">
                     <div class="oneCol"><strong>Player Name</strong></div>
                   </div>
-                  <div class="movie" id="results" ng-repeat="player in sleepers">
+                  <div class="fact" id="results" ng-repeat="player in sleepers">
                     <div class="twoCol">{{player.name}}</div>
                   </div>
                 </div>
