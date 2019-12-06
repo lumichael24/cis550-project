@@ -2,8 +2,19 @@ recommendations-container {
     margin-top: 2rem;
   }
 
-  .input-container .movie-input {
-    margin: 10px 0;
+  .title {
+    align-items: center;
+    color: white;
+    padding: 2em;
+    text-align: center;
+  }
+
+  .input-container {
+    text-align: center;
+  }
+
+  .input-container .player-input {
+    margin: 10px auto;
     width: 250px;
     height: 36px;
     border: none;
@@ -11,6 +22,7 @@ recommendations-container {
     box-sizing: border-box;
     border-radius: 20px;
     outline: none;
+    display: block;
   }
 
   .input-container .submit-btn {
@@ -22,27 +34,23 @@ recommendations-container {
     box-sizing: border-box;
     border-radius: 20px;
     outline: none;
-    background: #bd54a4;
+    background:orange;
     color: #fff;
     cursor: pointer;
     font-size: 12px;
   }
 
   .input-container .submit-btn:hover {
-    background: #c561ae;
+    background: darkorange;
   }
 
-  .input-container .submit-btn:active {
-    background: #d86bbe;
-  }
-
-  .movies-container {
+  .players-container {
     display: flex;
     flex-flow: column wrap;
     margin-top: 10px;
   }
 
-  .movies-container .movie {
+  .players-container .player {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -50,6 +58,6 @@ recommendations-container {
     padding: 0 10px;
   }
 
-  .movie .header, .movie .title, .movie .id, .movie .rating, .movie .vote-count {
+  .player .header, .player .title, .player .id, .player .rating, .player .vote-count {
     flex: 1 0 25%;
-  }autoautoauto
+  }
