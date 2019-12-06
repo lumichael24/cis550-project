@@ -1,8 +1,19 @@
+.title {
+  align-items: center;
+  color: white;
+  padding: 2em;
+  text-align: center;
+}
+
 .recommendations-container {
   margin-top: 2rem;
 }
 
-.input-container .movie-input {
+.input-container {
+  text-align: center;
+}
+
+.input-container .game-input {
   margin: 10px 0;
   width: 250px;
   height: 36px;
@@ -22,27 +33,23 @@
   box-sizing: border-box;
   border-radius: 20px;
   outline: none;
-  background: #bd54a4;
+  background: orange;
   color: #fff;
   cursor: pointer;
   font-size: 12px;
 }
 
 .input-container .submit-btn:hover {
-  background: #c561ae;
+  background: darkorange;
 }
 
-.input-container .submit-btn:active {
-  background: #d86bbe;
-}
-
-.movies-container {
+.games-container {
   display: flex;
   flex-flow: column wrap;
   margin-top: 10px;
 }
 
-.movies-container .movie {
+.games-container .game {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -50,7 +57,7 @@
   padding: 0 10px;
 }
 
-.movie .header, .movie .title, .movie .id, .movie .rating, .movie .vote-count {
+.game .header, .game .title, .game .id, .game .rating, .game .vote-count {
   flex: 1 0 25%;
 }
 

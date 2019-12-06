@@ -17,47 +17,55 @@
   <body ng-controller="teamh2hController">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand center" href="/">Basketball App</a>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/playerh2h">Player H2H</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/teamh2h">Team H2H</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/projection">Player Projection</a>
-            </li>
-            <li>
-                <a class="nav-link" href="/college">College Facts</a>
-            </li>
+      <a class="navbar-brand center" href="/">Basketball App</a>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="/playerh2h">Player H2H</a>
+          </li>
+          <li>
+              <a class="nav-link" href="/teamh2h">Team H2H</a>
+          </li>
+          <li>
+              <a class="nav-link" href="/projection">Player Projection</a>
+          </li>
+          <li>
+              <a class="nav-link" href="/college">College Facts</a>
+          </li>
 
-          </ul>
-          <img src="/assets/bballicon.png" height="32" width="32">
-        </div>
-      </nav>
+        </ul>
+        <img src="/assets/bballicon.png" height="32" width="32">
+      </div>
+    </nav>
 
-    <!-- Sample Content. You can either use this or make your own -->
+    <div class="title">
+      <h3> Team Head2Head </h3>
+      <h5> See which one of your favorite NBA teams is better!</h4>
+    </div>
+
     <div class="container recommendations-container">
       <div class="jumbotron">
-        <div class="h5">Team Head to Head</div>
-        <br>
         <div class="input-container">
-          <div class="h6">Select two teams to compare:</div>
-          <input type="text" ng-model="team1Name" placeholder="Enter Team Name" id="team1Name" class="movie-input"/>
-          <input type="text" ng-model="team2Name" placeholder="Enter Team Name" id="team2Name" class="movie-input"/>
-          <button id="submitMovieBtn" class="submit-btn" ng-click="submitTeams()">Submit</button>
+          <div class="row">
+              <div class="col" align="center">
+                  <input type="text" ng-model="team1Name" placeholder="Team 1 Name" id="team1Name" class="game-input"/>
+                  <!-- insert profile pics -->
+                </div>
+              <div class="col" align="center">
+                  <input type="text" ng-model="team2Name" placeholder="Team 2 Name" id="team2Name" class="game-input"/>
+                </div>
+          </div>
+          <button id="submitGameBtn" class="submit-btn" ng-click="submitTeams()">Submit</button>
         </div>
-        <div class="movies-container">
+        <div class="games-container">
           <div class="h6">Head to head record</div>
-          <div class="movie">
+          <div class="game">
             <div class="header"><strong>Team</strong></div>
             <div class="header"><strong>Conference</strong></div>
             <div class="header"><strong>Outcome</strong></div>
             <div class="header"><strong>Games</strong></div>
           </div>
-          <div class="movie" id="results" ng-repeat="team in teamRecord">
+          <div class="game" id="results" ng-repeat="team in teamRecord">
             <div class="header">{{team.Name}}</div>
             <div class="header">{{team.Conference}}</div>
             <div class="header">{{team.Outcome}}</div>
@@ -65,14 +73,14 @@
           </div>
         </div>
         <hr>
-        <div class="movies-container">
+        <div class="games-container">
           <div class="h6">Best performing players in matchup</div>
-          <div class="movie">
+          <div class="game">
             <div class="playerResult"><strong>Player Name</strong></div>
             <div class="playerResult"><strong>Team</strong></div>
             <div class="playerResult"><strong>Plus/Minus</strong></div>
           </div>
-          <div class="movie" id="results" ng-repeat="player in playerPerformance">
+          <div class="game" id="results" ng-repeat="player in playerPerformance">
             <div class="playerResult">{{player.Player_Name}}</div>
             <div class="playerResult">{{player.TeamName}}</div>
             <div class="playerResult">+{{player.PlusMinus.toFixed(1)}}</div>
