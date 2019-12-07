@@ -43,6 +43,11 @@ app.controller('playerh2hController', function($scope, $http) {
         value['ast'] = ((value['ast']['W']*value['W']) + (value['ast']['L']*value['L'])) / (value['W'] + value['L'])
         value['pts'] = ((value['pts']['W']*value['W']) + (value['pts']['L']*value['L'])) / (value['W'] + value['L'])
         value['trb'] = ((value['trb']['W']*value['W']) + (value['trb']['L']*value['L'])) / (value['W'] + value['L'])
+
+        value['ast'] = value['ast'].toFixed(1);
+        value['pts'] = value['pts'].toFixed(1);
+        value['trb'] = value['trb'].toFixed(1);
+
         map[key] = value
       }
 
@@ -69,7 +74,30 @@ app.controller('teamh2hController', function($scope, $http) {
       method: 'GET'
     }).then(res => {
       $scope.playerPerformance = res.data.firstQuery;
-      $scope.teamRecord = res.data.secondQuery;
+      console.log(res.data.secondQuery);
+      // Convert secondQuery (team record) into Wins and losses
+      map = {}
+      for (i = 0; i < res.data.secondQuery.length; i++) {
+        obj = res.data.secondQuery[i];
+        if (obj['Name'] in map) {
+          map[obj['Name']][obj['Outcome']] = obj['num'];
+        } else {
+          map[obj['Name']] = {};
+          map[obj['Name']]['Name'] = obj['Name']
+          map[obj['Name']][obj['Outcome']] = obj['num'];
+          map[obj['Name']]['Conference'] = obj['Conference'];
+        }
+      }
+
+      console.log(map);
+      // Get ordering right
+      map['team1'] = map[$scope.team1Name]
+      map['team2'] = map[$scope.team2Name];
+      delete map[$scope.team1Name];
+      delete map[$scope.team2Name];
+
+      console.log(map);
+      $scope.teamRecord = map;
     }, err => {
       console.log("Projection ERROR", err);
     });
