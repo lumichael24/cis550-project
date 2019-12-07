@@ -2,7 +2,6 @@ var app = angular.module('angularjsNodejsTutorial', []);
 
 // Controller for the Dashboard page
 app.controller('dashboardController', function($scope, $http) {
-  // TODO: Q1
 });
 
 // Controller for the Player head to head comparison page
@@ -181,4 +180,19 @@ app.controller('collegeFactsController', function($scope, $http) {
     });
   }
 
+});
+
+
+app.controller('newsController', function($scope, $http) {
+  try {
+    $http({
+      url: 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.espn.com%2Fespn%2Frss%2Fnba%2Fnews',
+      method: 'GET',
+    }).then(res => {
+      $scope.articles = res.data.items;
+      console.log($scope.articles);
+    })
+  } catch (error) {
+    console.log(error);
+  }
 });

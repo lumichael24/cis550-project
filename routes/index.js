@@ -64,6 +64,11 @@ router.get('/college', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'college.html'));
 });
 
+/* ----- NBA News ----- */
+router.get('/news', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'news.html'));
+});
+
 /* ------------------------------------------------ */
 /* ----- Routers to handle data requests ----- */
 /* ------------------------------------------------ */
