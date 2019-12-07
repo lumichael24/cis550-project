@@ -59,10 +59,18 @@
         <div class="games-container">
           <div class="h6">Head to head record</div>
           <div class="row">
-            <div class="col" id="results"  ng-repeat="team in teamRecord" align="center">
-              <div class="header"><strong>Conference</strong> {{team.Conference}}</div>
-              <div class="header"><strong>Wins: </strong> {{team.W}}</div>
+            <div class="col" id="results" align="center">
+              <img ng-if="team1Name"  ng-model="team1Name" src="../assets/team-logos/{{team1Name}}.gif">
+              </img>
+              <div class="header"><strong>Conference</strong> {{team.team1.Conference}}</div>
+              <div class="header"><strong>Wins: </strong> {{team.team1.W}}</div>
             </div>
+            <div class="col" id="results" align="center">
+                <img ng-if="team2Name"  ng-model="team2Name" src="../assets/team-logos/{{team2Name}}.gif">
+                </img>
+                <div class="header"><strong>Conference</strong> {{team.team2.Conference}}</div>
+                <div class="header"><strong>Wins: </strong> {{team.team2.W}}</div>
+              </div>
           </div>
         </div>
         <p ng-if="(team1Name && team2Name) && (team1Name === team2Name)">

@@ -103,14 +103,18 @@ app.controller('teamh2hController', function($scope, $http) {
     });
   }
 
-  $scope.teams = ['Atlanta Hawks', 'Boston Celtics', 'New Orleans Pelicans', 'Chicago Bulls',
-                  'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets', 'Detroit Pistons'
-                  ,'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'LA Clippers',
-                  'LA Lakers', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves',
-                  'Brooklyn Nets', 'New York Knicks', 'Orlando Magic', 'Philadelphia 76ers'
-                  ,'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs',
-                  'Oklahoma City Thunder', 'Utah Jazz', 'Washington Wizards', 'Toronto Raptors',
-                  'Memphis Grizzlies','Charlotte Hornets']
+  $scope.teams = ['Atlanta Hawks', 'Boston Celtics', 'Brooklyn Nets', 'Chicago Bulls'
+                  ,'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets', 'Detroit Pistons'
+                  ,'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'LA Clippers'
+                  ,'LA Lakers', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves'
+                  , 'New Orleans Pelicans'
+                  ,'New York Knicks', 'Orlando Magic', 'Philadelphia 76ers'
+                  ,'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs'
+                  ,'Oklahoma City Thunder', 'Utah Jazz', 'Washington Wizards', 'Toronto Raptors'
+                  ,'Memphis Grizzlies','Charlotte Hornets'].sort();
+
+  $scope.image1 = '../assets/team-logos/' + $scope.team1Name + '.gif'
+  $scope.image2 = '../assets/team-logos/' + $scope.team2Name + '.gif'
 });
 
 // Controller for the Projections Page
