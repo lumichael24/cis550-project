@@ -58,6 +58,6 @@ recommendations-container {
     padding: 0 10px;
   }
 
-  .player .header, .player .title, .player .id, .player .rating, .player .vote-count {
+  .player .header, .player .ptitle, .player .id, .player .rating, .player .vote-count {
     flex: 1 0 25%;
   }
