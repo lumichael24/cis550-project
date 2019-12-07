@@ -48,11 +48,11 @@
         <div class="input-container">
           <div class="row">
               <div class="col" align="center">
-                  <input type="text" ng-model="team1Name" placeholder="Team 1 Name" id="team1Name" class="game-input"/>
-                </div>
+                  <select ng-model="team1Name" ng-options="x for x in teams" id="team1Name" class="game-input"></select>
+              </div>
               <div class="col" align="center">
-                  <input type="text" ng-model="team2Name" placeholder="Team 2 Name" id="team2Name" class="game-input"/>
-                </div>
+                  <select ng-model="team2Name" ng-options="x for x in teams" id="team2Name" class="game-input"></select>
+              </div>
           </div>
           <button id="submitGameBtn" class="submit-btn" ng-click="submitTeams()">Submit</button>
         </div>
@@ -65,6 +65,9 @@
             </div>
           </div>
         </div>
+        <p ng-if="(team1Name && team2Name) && (team1Name === team2Name)">
+            Please select two different teams!
+        </p>
         <hr>
         <div class="games-container">
           <div class="h6">Best performing players in matchup</div>

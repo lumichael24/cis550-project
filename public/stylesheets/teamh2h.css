@@ -22,6 +22,7 @@
   box-sizing: border-box;
   border-radius: 20px;
   outline: none;
+  background: white;
 }
 
 .input-container .submit-btn {

@@ -2,7 +2,7 @@
 node_modules/
 bin/
 test/
-
+env/
 #Ignore these files
 db-config.js
 .DS_Store
