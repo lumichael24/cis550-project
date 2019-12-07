@@ -43,7 +43,7 @@ app.use(function(err, req, res, next) {
 
 });
 
-app.listen('8081', function() {
+app.listen(process.env.PORT || '8081', function() {
   console.log('Server running on port 8081');
 });
 
