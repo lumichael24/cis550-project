@@ -1,7 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var config = require('../db-config.js');
+try {
+  var config = require('../db-config.js');
+} catch (e) {
+  var config = {
+    host: process.env.db_host,
+    user: process.env.db_user,
+    password: process.env.db_password,
+    database: process.env.db_database,
+    port: process.env.db_port
+  }
+}
+
 
 /* ----- Connects to your mySQL database ----- */
 
