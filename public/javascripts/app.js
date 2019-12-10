@@ -155,6 +155,7 @@ app.controller('projectionController', function($scope, $http) {
       method: 'GET'
     }).then(res => {
       $scope.similarPlayers = res.data;
+      console.log(res.data);
     }, err => {
       console.log("Projection ERROR", err);
     });
