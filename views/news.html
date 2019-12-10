@@ -17,8 +17,8 @@
 
   <body ng-controller="newsController">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand center" href="/">Big Baller Basketball</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand center" href="/"><img src="/assets/bballicon.png" height="32" width="32"></a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -38,7 +38,6 @@
             </li>
 
           </ul>
-          <img src="/assets/bballicon.png" height="32" width="32">
         </div>
       </nav>
 
@@ -48,28 +47,29 @@
       <div class="jumbotron">
         <div class="games-container">
             <div class="row">
+              <div class="col">
             <ul class="left">
               <div class="titleText">
                   <h3> Current NBA News </h3>
                   <br>
-              <div>
+              </div>
               <li id="results" ng-repeat="article in articles">
-                <div class="header"> <a href={{article.link}} target="_blank"> {{article.title}} </a>
+                <div class="article"> <a href={{article.link}} target="_blank"> {{article.title}} </a>
                 <hr>
                 </div>
-
               </li>
             </ul>
-
             </div>
-        </div>
-      </div>
-
-      <div class="container-fluid">
-        <div class="row" id="introduction">
-          <div class="col">
-            <a class="twitter-timeline" data-width="800" data-height="500" href="https://twitter.com/NBA?ref_src=twsrc%5Etfw">Tweets by NBA</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-          </div>
+            <div class="col">
+              <div class="container-fluid">
+                <div class="row" id="introduction">
+                  <div class="col">
+                    <a class="twitter-timeline" data-width="800" data-height="500" href="https://twitter.com/NBA?ref_src=twsrc%5Etfw">Tweets by NBA</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
         </div>
       </div>
 
