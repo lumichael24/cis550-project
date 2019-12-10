@@ -170,7 +170,25 @@ app.controller('collegeFactsController', function($scope, $http) {
     url: '/retrieveByPosition/',
     method: 'GET'
   }).then(res => {
-    $scope.colleges = res.data;
+
+    centers = []
+    forwards = []
+    guards = []
+    for (i = 0; i < res.data.length; i++) {
+      var curr = res.data[i];
+      if (curr.pos === 'C') {
+        centers.push(curr);
+      } else if (curr.pos === 'F') {
+        forwards.push(curr);
+      } else if (curr.pos === 'G') {
+        guards.push(curr);
+      }
+    }
+
+    $scope.centers = centers;
+    $scope.forwards = forwards;
+    $scope.guards = guards;
+
     retrieveByOverall();
   }, err => {
     console.log("retrieveByPosition ERROR", err);

@@ -17,8 +17,8 @@
 
   <body ng-controller="collegeFactsController" ng-style="{'width': '100%'}">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand center" href="/">Big Baller Basketball</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand center" href="/"><img src="/assets/bballicon.png" height="32" width="32"></a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -38,7 +38,6 @@
             </li>
 
           </ul>
-          <img src="/assets/bballicon.png" height="32" width="32">
         </div>
       </nav>
 
@@ -49,14 +48,14 @@
 
     <div class="container bestof-container">
       <div class="jumbotron">
-        <div class="h5">College Facts</div>
+        <br>
         <br>
         <div class="container">
           <!-- <button class="submit-btn" id="byPositionSubmitBtn" ng-click="submitByPosition()">Order by Position</button>
           <button class="submit-btn" id="byOverallSubmitBtn" ng-click="submitByOverall()">Order by Overall</button>
           <button class="submit-btn" id="sleepersSubmitBtn" ng-click="submitBySleepers()">Sleepers</button>
           <button class="submit-btn" id="bustsSubmitBtn" ng-click="submitByBusts()">Busts</button> -->
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Colleges Most NBA Players by Position</a>
             </li>
@@ -64,64 +63,124 @@
               <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Colleges Most NBA Players</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Underperformers</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="sleepers-tab" data-toggle="tab" href="#sleepers" role="tab" aria-controls="sleepers" aria-selected="false">Overperformers</a>
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Over/Underperformers</a>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="jumbotron">
-              <div class="facts-container">
-                <div class="fact">
-                  <div class="threeCol"><strong>College</strong></div>
-                  <div class="threeCol"><strong>Position</strong></div>
-                  <div class="threeCol"><strong>Number of Players</strong></div>
-                </div>
-                <div class="fact" id="results" ng-repeat="college in colleges">
-                  <div class="threeCol">{{college.college}}</div>
-                  <div class="threeCol">{{college.pos}}</div>
-                  <div class="threeCol">{{college.numOfPlayers}}</div>
-                </div>
+              <div class="facts-container" align="center">
+                <center><h5>Top Colleges for Guards</h5></center>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Rank</th>
+                      <th scope="col">College</th>
+                      <th scope="col"># of players</th>
+                    </tr>
+                  </thead>
+                  <tbody id="results" ng-repeat="college in guards">
+                    <tr>
+                      <th scope="row">{{$index +1}}</th>
+                      <td>{{college.college}}</td>
+                      <td>{{college.numOfPlayers}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr>
+                <br>
+                <center><h5>Top Colleges for Forwards</h5></center>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Rank</th>
+                      <th scope="col">College</th>
+                      <th scope="col"># of players</th>
+                    </tr>
+                  </thead>
+                  <tbody id="results" ng-repeat="college in forwards">
+                    <tr>
+                      <th scope="row">{{$index +1}}</th>
+                      <td>{{college.college}}</td>
+                      <td>{{college.numOfPlayers}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <hr>
+                <br>
+                <center><h5>Top Colleges for Centers</h5></center>
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Rank</th>
+                      <th scope="col">College</th>
+                      <th scope="col"># of players</th>
+                    </tr>
+                  </thead>
+                  <tbody id="results" ng-repeat="college in centers">
+                    <tr>
+                      <th scope="row">{{$index +1}}</th>
+                      <td>{{college.college}}</td>
+                      <td>{{college.numOfPlayers}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <div class="jumbotron">
-                <div class="facts-container">
-                  <div class="fact">
-                    <div class="twoCol"><strong>College</strong></div>
-                    <div class="twoCol"><strong>Number of Players</strong></div>
-                  </div>
-                  <div class="fact" id="results" ng-repeat="college in overall">
-                    <div class="twoCol">{{college.college}}</div>
-                    <div class="twoCol">{{college.numOfPlayers}}</div>
-                  </div>
+                <center><h5>Top 20 Colleges that Produce Most NBA Players</h5></center>
+                <br>
+                <div class="facts-container" align="center">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">College</th>
+                        <th scope="col"># of players</th>
+                      </tr>
+                    </thead>
+                    <tbody id="results" ng-repeat="college in overall">
+                      <tr>
+                        <th scope="row">{{$index +1}}</th>
+                        <td>{{college.college}}</td>
+                        <td>{{college.numOfPlayers}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <div class="jumbotron">
                 <div class="facts-container">
-                  <div class="fact">
-                    <div class="oneCol"><strong>Player Name</strong></div>
+                  <div class="row">
+                  <div class="col">
+                    <h5><strong>Underperformers</strong></h5>
+                      <br>
+                      <table class="table table-hover">
+                        <thead></thead>
+                        <tbody id="results" ng-repeat="player in busts">
+                          <tr>
+                            <td>{{player.name}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                   </div>
-                  <div class="fact" id="results" ng-repeat="player in busts">
-                    <div class="twoCol">{{player.name}}</div>
+                  <div class="col">
+                    <h5><strong>Underperformers</strong></h5>
+                      <br>
+                      <table class="table table-hover">
+                        <thead></thead>
+                        <tbody id="results" ng-repeat="player in sleepers">
+                          <tr>
+                            <td>{{player.name}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="sleepers" role="tabpanel" aria-labelledby="sleepers-tab">
-              <div class="jumbotron">
-                <div class="facts-container">
-                  <div class="fact">
-                    <div class="oneCol"><strong>Player Name</strong></div>
-                  </div>
-                  <div class="fact" id="results" ng-repeat="player in sleepers">
-                    <div class="twoCol">{{player.name}}</div>
-                  </div>
                 </div>
               </div>
             </div>
