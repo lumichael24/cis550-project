@@ -65,3 +65,11 @@
 .playerResult {
   flex: 1 0 33%;
 }
+
+.teamNameText {
+  font-size: 16px;
+}
+
+.table {
+  width: 75%;
+}

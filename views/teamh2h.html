@@ -16,15 +16,15 @@
 
   <body ng-controller="teamh2hController">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand center" href="/">Big Baller Basketball</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand center" href="/"><img src="/assets/bballicon.png" height="32" width="32"></a>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
               <a class="nav-link" href="/playerh2h">Player H2H</a>
           </li>
           <li>
-              <a class="nav-link" href="/teamh2h">Team H2H</a>
+              <a class="nav-link active" href="/teamh2h">Team H2H</a>
           </li>
           <li>
               <a class="nav-link" href="/projection">Player Projection</a>
@@ -37,13 +37,12 @@
           </li>
 
         </ul>
-        <img src="/assets/bballicon.png" height="32" width="32">
       </div>
     </nav>
 
     <div class="title">
       <h3> Team Head2Head </h3>
-      <h5> See which one of your favorite NBA teams is better!</h4>
+      <h5> See which one of your favorite NBA teams is better and the highest impact players in the matchup!</h4>
     </div>
 
     <div class="container recommendations-container">
@@ -59,40 +58,67 @@
           </div>
           <button id="submitGameBtn" class="submit-btn" ng-click="submitTeams()">Submit</button>
         </div>
-        <div class="games-container">
-          <div class="h6">Head to head record</div>
-          <div class="row">
-            <div class="col" id="results" align="center">
-              <img ng-if="team1Name"  ng-model="team1Name" src="../assets/team-logos/{{team1Name}}.gif">
-              </img>
-              <div class="header"><strong>Conference</strong> {{teamRecord.team1.Conference}}</div>
-              <div class="header"><strong>Wins: </strong> {{teamRecord.team1.W}}</div>
+        <div ng-if="team1Name && team2Name && teamRecord.team1 && teamRecord.team2">
+          <div class="games-container">
+            <div class="row">
+              <div class="col" id="results" align="center">
+                <img ng-model="team1Name" ng-src="../assets/team-logos/{{teamRecord.team1.Name}}.gif"></img>
+                <br>
+                <br>
+                <div class="header teamNameText"><strong>{{teamRecord.team1.Name}}</strong></div>
+                <div class="header">({{teamRecord.team1.W}} - {{teamRecord.team1.L}})</div>
+              </div>
+              <div class="col" id="results" align="center">
+                  <img ng-model="team2Name" ng-src="../assets/team-logos/{{teamRecord.team2.Name}}.gif"></img>
+                  <br>
+                  <br>
+                  <div class="header teamNameText"><strong>{{teamRecord.team2.Name}}</strong></div>
+                  <div class="header">({{teamRecord.team2.W}} - {{teamRecord.team2.L}})</div>
+                </div>
             </div>
-            <div class="col" id="results" align="center">
-                <img ng-if="team2Name"  ng-model="team2Name" src="../assets/team-logos/{{team2Name}}.gif">
-                </img>
-                <div class="header"><strong>Conference</strong> {{teamRecord.team2.Conference}}</div>
-                <div class="header"><strong>Wins: </strong> {{teamRecord.team2.W}}</div>
+          </div>
+          <br>
+          <br>
+          <div class="games-container">
+            <div class ="row">
+              <div class="col" align="center">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Player</th>
+                      <th scope="col">Plus/Minus</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="player in team1Players">
+                    <tr>
+                      <td>{{player.Player_Name}}</td>
+                      <td>+{{player.PlusMinus.toFixed(1)}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col" align="center">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Player</th>
+                      <th scope="col">Plus/Minus</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="player in team2Players">
+                    <tr>
+                      <td>{{player.Player_Name}}</td>
+                      <td>+{{player.PlusMinus.toFixed(1)}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
           </div>
-        </div>
-        <p ng-if="(team1Name && team2Name) && (team1Name === team2Name)">
-            Please select two different teams!
-        </p>
-        <hr>
-        <div class="games-container">
-          <div class="h6">Best performing players in matchup</div>
-          <div class="game">
-            <div class="playerResult"><strong>Player Name</strong></div>
-            <div class="playerResult"><strong>Team</strong></div>
-            <div class="playerResult"><strong>Plus/Minus</strong></div>
           </div>
-          <div class="game" id="results" ng-repeat="player in playerPerformance">
-            <div class="playerResult">{{player.Player_Name}}</div>
-            <div class="playerResult">{{player.TeamName}}</div>
-            <div class="playerResult">+{{player.PlusMinus.toFixed(1)}}</div>
-          </div>
-        </div>
+      </div>
+      <p ng-if="(team1Name && team2Name) && (team1Name === team2Name)">
+          Please select two different teams!
+      </p>
       </div>
     </div>
 

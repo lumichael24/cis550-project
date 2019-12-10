@@ -76,12 +76,35 @@ app.controller('playerh2hController', function($scope, $http) {
 // Controller for the Team head to head comparison page
 app.controller('teamh2hController', function($scope, $http) {
   $scope.submitTeams = function() {
+
+    if ($scope.team1Name === $scope.team2Name) {
+      return;
+    }
+
     $http({
       url: '/teamh2h/' + $scope.team1Name + '/' + $scope.team2Name,
       method: 'GET'
     }).then(res => {
       $scope.playerPerformance = res.data.firstQuery;
-      console.log(res.data.secondQuery);
+
+      team1Players = []
+      team2Players = []
+      console.log(res.data.firstQuery);
+      for (i = 0; i < res.data.firstQuery.length; i++) {
+        var curr = res.data.firstQuery[i];
+        if (curr.TeamName === $scope.team1Name) {
+          team1Players.push(curr);
+        } else if (curr.TeamName === $scope.team2Name) {
+          team2Players.push(curr);
+        }
+      }
+
+      console.log(team1Players);
+      console.log(team2Players);
+
+      $scope.team1Players = team1Players;
+      $scope.team2Players = team2Players;
+
       // Convert secondQuery (team record) into Wins and losses
       map = {}
       for (i = 0; i < res.data.secondQuery.length; i++) {
@@ -96,7 +119,6 @@ app.controller('teamh2hController', function($scope, $http) {
         }
       }
 
-      console.log(map);
       // Get ordering right
       map['team1'] = map[$scope.team1Name]
       map['team2'] = map[$scope.team2Name];
