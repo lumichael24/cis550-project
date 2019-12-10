@@ -11,7 +11,7 @@
     <script src="/javascripts/app.js" type="text/javascript"></script>
     <!-- Custom styles for this template-->
     <link href="/stylesheets/common.css" rel="stylesheet">
-    <link href="/stylesheets/playerh2h.css" rel="stylesheet">
+    <link href="/stylesheets/news.css" rel="stylesheet">
   </head>
 
   <body ng-controller="newsController">
@@ -51,7 +51,7 @@
       <div class="jumbotron">
         <div class="games-container">
             <div class="row">
-            <ul>
+            <ul class="left">
               <li id="results" ng-repeat="article in articles">
                 <div class="header"> <a href={{article.link}} target="_blank"> {{article.title}} </a></div>
 
