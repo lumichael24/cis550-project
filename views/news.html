@@ -12,6 +12,7 @@
     <!-- Custom styles for this template-->
     <link href="/stylesheets/common.css" rel="stylesheet">
     <link href="/stylesheets/news.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
   </head>
 
   <body ng-controller="newsController">
@@ -43,17 +44,19 @@
 
     <br>
 
-    <div class="title">
-        <h3> Current NBA News </h3>
-    </div>
-
     <div class="container p2p-container">
       <div class="jumbotron">
         <div class="games-container">
             <div class="row">
             <ul class="left">
+              <div class="titleText">
+                  <h3> Current NBA News </h3>
+                  <br>
+              <div>
               <li id="results" ng-repeat="article in articles">
-                <div class="header"> <a href={{article.link}} target="_blank"> {{article.title}} </a></div>
+                <div class="header"> <a href={{article.link}} target="_blank"> {{article.title}} </a>
+                <hr>
+                </div>
 
               </li>
             </ul>

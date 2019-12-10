@@ -1,5 +1,5 @@
 body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family:'Quicksand', sans-serif;
     background: url('./../assets/court.jpg') center center no-repeat fixed;
     height: 100vh;
     width: 100vw;
@@ -45,4 +45,9 @@ body {
 
 .back-btn:active {
   background: #d86bbe;
+}
+
+html *
+{
+  font-family:'Quicksand', sans-serif;
 }
