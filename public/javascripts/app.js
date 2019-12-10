@@ -7,6 +7,11 @@ app.controller('dashboardController', function($scope, $http) {
 // Controller for the Player head to head comparison page
 app.controller('playerh2hController', function($scope, $http) {
   $scope.submitPlayers = function() {
+
+    if ($scope.player1Name === undefined || $scope.player2Name === undefined || $scope.player1Name === '' || $scope.player2Name === '') {
+      return;
+    }
+
     $http({
       url: '/playerh2h/' + $scope.player1Name + '/' + $scope.player2Name,
       method: 'GET'
@@ -16,48 +21,51 @@ app.controller('playerh2hController', function($scope, $http) {
       var map = {}
       for (i = 0; i < res.data.length; i++) {
         var obj = res.data[i];
-        if (obj['Player_Name'] in map) {
-          map[obj['Player_Name']]['ast'][obj["Outcome"]] += obj['ast']
-          map[obj['Player_Name']]['pts'][obj["Outcome"]] += obj['pts']
-          map[obj['Player_Name']]['trb'][obj["Outcome"]] += obj['trb']
+
+        var playerKey = obj['Player_Name'].toLowerCase();
+
+        if (playerKey in map) {
+          map[playerKey]['ast'][obj["Outcome"]] += obj['ast']
+          map[playerKey]['pts'][obj["Outcome"]] += obj['pts']
+          map[playerKey]['trb'][obj["Outcome"]] += obj['trb']
         } else {
-          map[obj['Player_Name']] = {}
-          map[obj['Player_Name']]['ast'] = {'W': 0, 'L': 0}
-          map[obj['Player_Name']]['pts'] = {'W': 0, 'L': 0}
-          map[obj['Player_Name']]['trb'] = {'W': 0, 'L': 0}
-          map[obj['Player_Name']]['ast'][obj["Outcome"]] = obj['ast']
-          map[obj['Player_Name']]['pts'][obj["Outcome"]] = obj['pts']
-          map[obj['Player_Name']]['trb'][obj["Outcome"]] = obj['trb']
+          map[playerKey] = {}
+
+          var nameList = playerKey.split(" ");
+          var firstName = nameList[0];
+          var lastName = nameList[1];
+
+          var imageLink = 'https://nba-players.herokuapp.com/players/' + lastName +'/' + firstName;
+
+          map[playerKey]['imageLink'] = imageLink;
+          map[playerKey]['name'] = obj['Player_Name']
+          map[playerKey]['results'] = {'W': 0, 'L': 0}
+          map[playerKey]['ast'] = {'W': 0, 'L': 0}
+          map[playerKey]['pts'] = {'W': 0, 'L': 0}
+          map[playerKey]['trb'] = {'W': 0, 'L': 0}
+          map[playerKey]['ast'][obj["Outcome"]] = obj['ast']
+          map[playerKey]['pts'][obj["Outcome"]] = obj['pts']
+          map[playerKey]['trb'][obj["Outcome"]] = obj['trb']
         }
         if (obj["Outcome"] === "W") {
-          map[obj['Player_Name']]['W'] = obj["Num"]
+          map[playerKey]['results']['W'] = obj["Num"]
         } else {
-          map[obj['Player_Name']]['L'] = obj["Num"]
+          map[playerKey]['results']['L'] = obj["Num"]
         }
       }
 
-      for (var key in map) {
-        var value = map[key];
-        // weighted avg
-        value['ast'] = ((value['ast']['W']*value['W']) + (value['ast']['L']*value['L'])) / (value['W'] + value['L'])
-        value['pts'] = ((value['pts']['W']*value['W']) + (value['pts']['L']*value['L'])) / (value['W'] + value['L'])
-        value['trb'] = ((value['trb']['W']*value['W']) + (value['trb']['L']*value['L'])) / (value['W'] + value['L'])
+      var returnMap = {};
+      // Get ordering right
+      returnMap['player1'] = map[$scope.player1Name.toLowerCase()]
+      returnMap['player2'] = map[$scope.player2Name.toLowerCase()]
 
-        value['ast'] = value['ast'].toFixed(1);
-        value['pts'] = value['pts'].toFixed(1);
-        value['trb'] = value['trb'].toFixed(1);
-
-        map[key] = value
+      if (res.data.length > 0) {
+        $scope.playerStats = returnMap
+      } else {
+        $scope.playerStats = "no players";
       }
 
-      // Get ordering right
-      map['player1'] = map[$scope.player1Name]
-      map['player2'] = map[$scope.player2Name];
-      delete map[$scope.player1Name];
-      delete map[$scope.player2Name];
 
-
-      $scope.playerStats = map
       console.log($scope.playerStats);
     }, err => {
       console.log("Projection ERROR", err);

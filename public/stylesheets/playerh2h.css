@@ -63,3 +63,8 @@
 .game .header, .game .title, .game .id, .game .rating, .game .vote-count {
   flex: 1 0 16%;
 }
+
+.table {
+  width: 50%;
+  margin: auto;
+}
