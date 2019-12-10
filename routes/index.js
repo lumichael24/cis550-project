@@ -244,9 +244,12 @@ router.get('/projection/:playername', function(req, res) {
       FROM PS N, College C
       WHERE N.PTS IS NOT NULL AND C.PTS IS NOT NULL AND N.AST IS NOT NULL AND C.AST IS NOT NULL AND
       N.TRB IS NOT NULL AND C.TRB IS NOT NULL
+  ), TEMP_NBA AS (
+      SELECT N.PTS, N.TRB, N.AST, N.name, N.college
+      FROM NBA N
   )
   SELECT DISTINCT T.playerName AS name, N.PTS, N.TRB, N.AST
-  FROM TEMP_LMS T JOIN NBA N ON T.playerName = N.name AND T.collegeName = N.college
+  FROM TEMP_LMS T JOIN TEMP_NBA N ON T.playerName = N.name AND T.collegeName = N.college
   WHERE T.playerName <> "`+ playerName +`"
   ORDER BY T.similarityValue ASC
   LIMIT 10
